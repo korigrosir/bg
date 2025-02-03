@@ -11,15 +11,22 @@
   <div class="container">
     <h1>Hapus Background Gambar</h1>
     <p>Pilih gambar yang ingin Anda hapus background-nya</p>
-    
+
     <label class="upload-btn">
       <input type="file" id="upload-image" accept="image/*">
       Pilih Gambar
     </label>
 
-    <canvas id="canvas"></canvas>
+    <div id="image-container">
+      <h2>Gambar Asli</h2>
+      <img id="original-image" src="#" alt="Original Image" style="display: none;">
+      <h2>Gambar Tanpa Background</h2>
+      <img id="processed-image" src="#" alt="Processed Image" style="display: none;">
+    </div>
 
     <button id="remove-bg" class="btn-primary">Hapus Background</button>
+
+    <a id="download-btn" class="btn-download" href="#" download="image-no-bg.png" style="display: none;">Unduh Gambar</a>
   </div>
 
   <script src="script.js"></script>
