@@ -1,33 +1,45 @@
 const uploadImage = document.getElementById('upload-image');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
 const removeBgButton = document.getElementById('remove-bg');
+const originalImage = document.getElementById('original-image');
+const processedImage = document.getElementById('processed-image');
+const downloadButton = document.getElementById('download-btn');
+let uploadedImageUrl = '';
 
 uploadImage.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (!file) return;
 
-  const img = new Image();
-  img.onload = () => {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    uploadedImageUrl = e.target.result;
+    originalImage.src = uploadedImageUrl;
+    originalImage.style.display = 'block';
   };
-  img.src = URL.createObjectURL(file);
+  reader.readAsDataURL(file);
 });
 
-removeBgButton.addEventListener('click', () => {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-
-  for (let i = 0; i < data.length; i += 4) {
-    const [r, g, b, a] = data.slice(i, i + 4);
-
-    // Hapus warna hampir putih
-    if (r > 240 && g > 240 && b > 240) {
-      data[i + 3] = 0;
-    }
+removeBgButton.addEventListener('click', async () => {
+  if (!uploadedImageUrl) {
+    alert('Pilih gambar terlebih dahulu!');
+    return;
   }
 
-  ctx.putImageData(imageData, 0, 0);
+  try {
+    // Kirim permintaan ke API Paxsenix
+    const apiUrl = `https://api.paxsenix.biz.id/tools/removebg?url=${uploadedImageUrl}`;
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Gagal menghapus background.');
+    }
+
+    const blob = await response.blob();
+    const imageUrl = URL.createObjectURL(blob);
+    
+    processedImage.src = imageUrl;
+    processedImage.style.display = 'block';
+    downloadButton.href = imageUrl;
+    downloadButton.style.display = 'inline-block';
+  } catch (error) {
+    alert('Terjadi kesalahan: ' + error.message);
+  }
 });
