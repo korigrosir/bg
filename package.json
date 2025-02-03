@@ -1,0 +1,8 @@
+{
+  "name": bg-remover",
+  "version": "1.0.0",
+  "dependencies": {
+    "formidable": "^2.0.0", // Pastikan 'formidable' ada di sini
+    // dependensi lainnya...
+  }
+}
