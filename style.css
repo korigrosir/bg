@@ -51,6 +51,10 @@ p {
   display: none;
 }
 
+#image-container {
+  margin-top: 15px;
+}
+
 img {
   max-width: 100%;
   margin-top: 10px;
@@ -80,6 +84,10 @@ img {
   border-radius: 5px;
   margin-top: 15px;
   text-decoration: none;
+}
+
+.btn-download:hover {
+  background: #1e8449;
 }
 
 @media (max-width: 600px) {
