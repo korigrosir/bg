@@ -51,11 +51,10 @@ p {
   display: none;
 }
 
-canvas {
-  display: block;
-  margin: 20px auto;
+img {
   max-width: 100%;
-  border: 2px solid #ddd;
+  margin-top: 10px;
+  border: 1px solid #ddd;
   border-radius: 5px;
 }
 
@@ -71,6 +70,16 @@ canvas {
 
 .btn-primary:hover {
   background: #c0392b;
+}
+
+.btn-download {
+  display: inline-block;
+  background: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-decoration: none;
 }
 
 @media (max-width: 600px) {
