@@ -25,17 +25,21 @@ removeBgButton.addEventListener('click', async () => {
   }
 
   try {
-    // Upload gambar ke Vercel dan dapatkan URL untuk digunakan oleh API
+    // Upload gambar ke ImgBB dan dapatkan URL
     const formData = new FormData();
     formData.append('image', uploadImage.files[0]);
 
-    const uploadResponse = await fetch('/api/upload', {
+    const uploadResponse = await fetch('https://api.imgbb.com/1/upload?key=7d2f0e530a83b4a4d2d45060bcda4e24', {
       method: 'POST',
       body: formData,
     });
 
     const uploadData = await uploadResponse.json();
-    const imageUrl = uploadData.imageUrl;
+    if (!uploadData.success) {
+      throw new Error('Gagal mengupload gambar ke ImgBB');
+    }
+
+    const imageUrl = uploadData.data.url; // URL gambar di ImgBB
 
     // Kirim URL gambar ke API untuk menghapus background
     const apiUrl = `https://api.paxsenix.biz.id/tools/removebg?url=${encodeURIComponent(imageUrl)}`;
