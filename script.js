@@ -25,18 +25,22 @@ removeBgButton.addEventListener('click', async () => {
   }
 
   try {
-    // Kirim permintaan ke API Paxsenix
-    const apiUrl = `https://api.paxsenix.biz.id/tools/removebg?url=${uploadedImageUrl}`;
+    // Gunakan API PaxSenix untuk menghapus background
+    const apiUrl = `https://api.paxsenix.biz.id/tools/removebg?url=${encodeURIComponent(uploadedImageUrl)}`;
     const response = await fetch(apiUrl);
-    if (!response.ok) {
+    const result = await response.json();
+
+    if (!result.ok) {
       throw new Error('Gagal menghapus background.');
     }
 
-    const blob = await response.blob();
-    const imageUrl = URL.createObjectURL(blob);
-    
+    const imageUrl = result.url;
+
+    // Tampilkan hasil gambar tanpa background
     processedImage.src = imageUrl;
     processedImage.style.display = 'block';
+
+    // Berikan link unduhan untuk gambar tanpa background
     downloadButton.href = imageUrl;
     downloadButton.style.display = 'inline-block';
   } catch (error) {
