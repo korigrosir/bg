@@ -20,7 +20,7 @@ export default function handler(req, res) {
     }
 
     const uploadedImagePath = files.image[0].path; // Lokasi gambar yang diupload
-    const imageUrl = `https://your-vercel-domain.vercel.app/api/serve-image?file=${encodeURIComponent(uploadedImagePath)}`;
+    const imageUrl = `https://remover-bg-one.vercel.app/api/serve-image?file=${encodeURIComponent(uploadedImagePath)}`;
 
     res.status(200).json({
       message: 'Upload berhasil',
